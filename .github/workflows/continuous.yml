@@ -30,4 +30,11 @@ jobs:
          files: "EleDo.zip"
          release-tag: "Continuous"
          repo-token: "${{ secrets.GITHUB_TOKEN }}"
-
+    - name: "Generate artifact hashes"
+      run: |
+        sha256sum *.zip | tee hashes.txt
+    - name: "Upload artifact hashes"
+      uses: actions/upload-artifact@master
+      with:
+         name: "hashes"
+         path: "hashes.txt"
